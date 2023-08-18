@@ -12,4 +12,5 @@ router.post('/',auth(endPoint.create),fileUpload(fileValidation.image).single('i
 router.put('/update/:categoryId',auth(endPoint.update),fileUpload(fileValidation.image).single('image'),validation(validator.categoryUpdate),categoryController.updateCategory)
 router.get('/:categoryId',validation(validator.getCategory),categoryController.getCategory)
 router.get('/',auth(Object.values(roles)),categoryController.getCategories)
+router.delete('/forcedelete/:categoryId',auth(endPoint.forcedelete),categoryController.forceDelete)
 export default router

@@ -1,4 +1,7 @@
+import brandModel from "../../../../DB/model/Brand.model.js";
 import categoryModel from "../../../../DB/model/Category.model.js";
+import productModel from "../../../../DB/model/Product.model.js";
+import subCategoryModel from "../../../../DB/model/SubCategory.model.js";
 import cloudinary from "../../../Services/cloudinary.js";
 import { asyncHandler } from "../../../Services/errorHandling.js";
 import slugify from'slugify'
@@ -50,3 +53,17 @@ category.updatedBy=req.user._id
 await category.save()
 return res.status(201).json({message:"success",category})
 })
+export const forceDelete = asyncHandler(async (req, res, next) => {
+    let { categoryId } = req.params;
+    const category = await categoryModel.findByIdAndDelete({
+      _id:categoryId
+    });
+    const subSategory = await subCategoryModel.deleteOne({categoryId})
+    const brand = await brandModel.deleteOne({categoryId}) 
+    const product = await productModel.deleteOne({categoryId}) 
+  
+    if (!category) {
+      return next(new Error(` category not found`, { cause: 404 }));
+    }
+    return res.json({ message: "success", category });
+  });
