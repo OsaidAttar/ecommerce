@@ -25,9 +25,9 @@ const initApp=(app,express)=>{
 //  }
 //     next()
 // })
-app.use('/',(req,res)=>{
-    return res.json('welcome')
-})
+// app.use('/',(req,res)=>{
+//     return res.json('welcome')
+// })
    app.use(cors())
     connectDB();
     app.use(express.json());
