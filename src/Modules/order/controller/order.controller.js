@@ -5,7 +5,7 @@ import { asyncHandler } from "../../../Services/errorHandling.js";
 import slugify from'slugify'
 import moment from'moment' // require
 import productModel from "../../../../DB/model/Product.model.js";
-import { request, response } from "express";
+
 import orderModel from "../../../../DB/model/Order.model.js";
 import cartModel from "../../../../DB/model/Cart.model.js";
 import createInvoice from "../../../Services/pdf.js";
@@ -14,6 +14,7 @@ import { sendEmail } from "../../../Services/sendEmail.js";
 
 
 export const createOrder =asyncHandler(async (req,res,next)=>{
+    return res.json("oo")
     const {products,address,phoneNumber,couponName,paymentType}=req.body
     if(couponName){
         const coupon =await couponModel.findOne({name:couponName.toLowerCase()})
@@ -46,6 +47,7 @@ export const createOrder =asyncHandler(async (req,res,next)=>{
             return next(new Error(`invalid product`,{cause:404}))
             
         }
+        product=product.toObject()
         product.name=checkProduct.name
         product.unitPrice=checkProduct.finalPrice
         product.finalPrice=product.qty*checkProduct.finalPrice
