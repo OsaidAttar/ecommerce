@@ -90,6 +90,8 @@ if(user.confirmEmail){
     await sendEmail(email,'confirm email',html);
     return res.status(200).send(`<p> new confirm email  send  to your inbox </p>`)
 })
+
+
 export const sendCode =asyncHandler( async(req,res,next)=>{
 const {email}=req.body
 let code =customAlphabet('1234567890abcdef', 4)
