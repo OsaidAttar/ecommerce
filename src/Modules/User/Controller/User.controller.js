@@ -37,6 +37,7 @@ export const updatePassword=async  (req,res,next)=>{
     const {oldPassword,newPassword} = req.body;
 
     const user = await userModel.findById(req.id);
+   
     const match = compare(oldPassword,user.password)
     if(!match){
         return next(new Error("invalid password "));

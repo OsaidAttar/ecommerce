@@ -1,4 +1,5 @@
 
+import { response } from "express";
 import brandModel from "../../../../DB/model/Brand.model.js";
 
 import productModel from "../../../../DB/model/Product.model.js";
@@ -191,6 +192,7 @@ else{
   req.body.products=products
 }
 const products=req.body.products
+
   if (!products) {
     return next(new Error(`product not found `, { cause: 409 }));
   }

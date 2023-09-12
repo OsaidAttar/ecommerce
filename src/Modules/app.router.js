@@ -45,7 +45,7 @@ const initApp=(app,express)=>{
         return res.json({messaga:"page not found"});
     })
 
-    //global error handler
+    
     app.use(globalErrorHandel)
 
 }

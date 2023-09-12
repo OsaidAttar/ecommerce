@@ -17,8 +17,7 @@ productController.createProduct)
 router.put('/update/:productId',auth(endPoint.update),fileUpload(fileValidation.image).fields([
     {name:'mainImages',maxCount:1},
     {name:'subImages',maxCount:5}
-]),
-productController.updateProduct)
+]),productController.updateProduct)
 router.patch('/softdelete/:productId',auth(endPoint.softdelete),productController.softDelete)
 router.delete('/forcedelete/:productId',auth(endPoint.forcedelete),productController.forceDelete)
 router.patch('/restore/:productId',auth(endPoint.restore),productController.restore)

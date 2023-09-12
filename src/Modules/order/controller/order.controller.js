@@ -39,7 +39,7 @@ export const createOrder =asyncHandler(async (req,res,next)=>{
         const checkProduct=await productModel.findOne({
             _id:product.productId,
             stock:{$gte:product.qty},
-            deleted:false
+           // deleted:false
             
         })
         if(!checkProduct){
@@ -52,7 +52,8 @@ export const createOrder =asyncHandler(async (req,res,next)=>{
         product.finalPrice=product.qty*checkProduct.finalPrice
         subTotal+=product.finalPrice
         productIds.push(product.productId)
-        finalProductList.push(product) }
+        finalProductList.push(product)
+     }
         const order =await orderModel.create({
             userId:req.user._id,
             address,
@@ -87,7 +88,8 @@ export const createOrder =asyncHandler(async (req,res,next)=>{
                             invoice_nr: order._id
                         };
                         
-                        createInvoice(invoice, "invoice.pdf");       
+                        createInvoice(invoice, "invoice.pdf"); 
+                        return res.json(req.user.email)     
                         await sendEmail(req.user.email,'infinity light-invoice','welcome',{
                             path:'invoice.pdf',
                             contentType:'application/pdf'
@@ -96,7 +98,7 @@ export const createOrder =asyncHandler(async (req,res,next)=>{
                         return res.status(200).json({message:"success",order})
                     })
                     
-                    export const createOrderWithAllItemFromCart =asyncHandler(async (req,res,next)=>{
+export const createOrderWithAllItemFromCart =asyncHandler(async (req,res,next)=>{
     const cart =await cartModel.findOne({userId:req.user._Id})
     if(!cart?.products?.length){
         return next(new Error(` empty cart`,{cause:404}))

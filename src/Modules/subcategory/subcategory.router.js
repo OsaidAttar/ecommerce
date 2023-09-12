@@ -8,9 +8,7 @@ import { endPoint } from "./subcategory.endpoint.js"
 const router =Router({mergeParams: true})
 
 
-router.post('/',auth(endPoint.create),fileUpload(fileValidation.image)
-.single('image'),validation(validator.subCategoryCreate),
-subcategoryController.createSubCategory)
+router.post('/',auth(endPoint.create),fileUpload(fileValidation.image).single('image'),validation(validator.subCategoryCreate),subcategoryController.createSubCategory)
 
 
 router.put('/update/:subcategoryId',fileUpload(fileValidation.image).single('image'),validation(validator.subCategoryUpdate),subcategoryController.updateSubCategory)
